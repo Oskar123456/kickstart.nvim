@@ -84,8 +84,15 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 -- MY OWN CUSTOM STUFF HERE
-vim.keymap.set('t', '<ESC><ESC>', '<C-\\><C-n>', { desc = 'exit terminal mode' })
+-- vim.cmd.colorscheme 'komau'
+vim.keymap.set('n', '<ESC>', ':nohl<CR>', { desc = 'cancel search highlihts' })
 -- Move lines --
 vim.keymap.set('i', '<A-j>', '<ESC>:m .+1<CR>==gi', { desc = 'move text' })
 vim.keymap.set('i', '<A-k>', '<ESC>:m .-2<CR>==gi', { desc = 'move text' })
@@ -93,16 +100,17 @@ vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'move text' })
 vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'move text' })
 vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { desc = 'move text' })
 vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { desc = 'move text' })
+
+-- C FORMAT OPTIONS -------------------
+vim.opt.shiftwidth = 4
+vim.keymap.set('n', '<leader>cf', ':!clang-format -i %:p<CR><enter>', { desc = 'format this file with clang-format' })
+-- EXTRA OPTIONS ----------------
+vim.opt.pumheight = 4
+vim.opt.pumblend = 20
 -- MY OWN CUSTOM STUFF HERE
 
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = true
+vim.g.have_nerd_font = false
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -204,13 +212,6 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<M-h>', ':tabnext -1 <CR>', { desc = '' })
 vim.keymap.set('n', '<M-l>', ':tabnext +1 <CR>', { desc = '' })
 vim.keymap.set('n', '<M-t>', ':tabnew <CR>', { desc = '' })
-
--- MY OWN STUFF
-
-vim.cmd.colorscheme 'komau'
--- vim.cmd.hi 'Comment gui=none'
-
--- MY OWN STUFF
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -562,11 +563,11 @@ require('lazy').setup({
           -- code, if the language server you are using supports them
           --
           -- This may be unwanted, since they displace some of your code
-          --          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-          --            map('<leader>th', function()
-          --              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-          --            end, '[T]oggle Inlay [H]ints')
-          --          end
+          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            map('<leader>th', function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            end, '[T]oggle Inlay [H]ints')
+          end
         end,
       })
 
@@ -745,7 +746,7 @@ require('lazy').setup({
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
-
+          ['<C-x>'] = cmp.mapping.close(),
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
@@ -810,23 +811,48 @@ require('lazy').setup({
   --      vim.cmd.hi 'Comment gui=none'
   --    end,
   --  },
-  --  {
-  --    'olivercederborg/poimandres.nvim',
-  --    lazy = false,
-  --    priority = 1000,
-  --    config = function()
-  --      require('poimandres').setup {
-  --        -- leave this setup function empty for default config
-  --        -- or refer to the configuration section
-  --        -- for configuration options
-  --      }
-  --    end,
+
+  -- {
+  --   'olivercederborg/poimandres.nvim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require('poimandres').setup {
+  --       -- leave this setup function empty for default config
+  --       -- or refer to the configuration section
+  --       -- for configuration options
+  --     }
+  --   end,
   --
-  --    -- optionally set the colorscheme within lazy config
-  --    init = function()
-  --      vim.cmd 'colorscheme poimandres'
-  --    end,
-  --  },
+  --   -- optionally set the colorscheme within lazy config
+  --   init = function()
+  --     vim.cmd 'colorscheme poimandres'
+  --   end,
+  -- },
+  --
+  -- {
+  --   'nyoom-engineering/oxocarbon.nvim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function() end,
+  --
+  --   -- optionally set the colorscheme within lazy config
+  --   init = function()
+  --     vim.cmd 'colorscheme oxocarbon'
+  --   end,
+  -- },
+  {
+    'scottmckendry/cyberdream.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function() end,
+
+    -- optionally set the colorscheme within lazy config
+    init = function()
+      vim.cmd 'colorscheme cyberdream'
+    end,
+  },
+
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
