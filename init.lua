@@ -84,6 +84,17 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+-- MY OWN CUSTOM STUFF HERE
+vim.keymap.set('t', '<ESC><ESC>', '<C-\\><C-n>', { desc = 'exit terminal mode' })
+-- Move lines --
+vim.keymap.set('i', '<A-j>', '<ESC>:m .+1<CR>==gi', { desc = 'move text' })
+vim.keymap.set('i', '<A-k>', '<ESC>:m .-2<CR>==gi', { desc = 'move text' })
+vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'move text' })
+vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'move text' })
+vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { desc = 'move text' })
+vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { desc = 'move text' })
+-- MY OWN CUSTOM STUFF HERE
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
