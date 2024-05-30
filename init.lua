@@ -92,8 +92,15 @@ vim.g.maplocalleader = ' '
 --
 -- MY OWN CUSTOM STUFF HERE ---------------------------------------------------
 --
+-- COLORS
+--
 -- vim.cmd.colorscheme 'komau'
+-- vim.cmd.colorscheme "mycolorscheme"
+--
+-- KEYS
+--
 vim.keymap.set('n', '<ESC>', ':nohl<CR>', { desc = 'cancel search highlihts' })
+vim.keymap.set('n', ';;', 'zz', { desc = 'center screen on cursor' })
 --
 -- Move lines --------------------------------------------------------------
 --
@@ -101,13 +108,13 @@ vim.keymap.set('i', '<A-j>', '<ESC>:m .+1<CR>==gi', { desc = 'move text' })
 vim.keymap.set('i', '<A-k>', '<ESC>:m .-2<CR>==gi', { desc = 'move text' })
 vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { desc = 'move text' })
 vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { desc = 'move text' })
-vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { desc = 'move text' })
-vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { desc = 'move text' })
+vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { noremap = true, silent = true })
 --
 -- Tabs ----------------------------------------------------
 --
-vim.keymap.set('n', '<M-h>', ':tabnext -1 <CR>', { desc = '' })
-vim.keymap.set('n', '<M-l>', ':tabnext +1 <CR>', { desc = '' })
+vim.keymap.set('n', '<M-h>', ':tabnext -1 <CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<M-l>', ':tabnext +1 <CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<M-t>', ':tabnew <CR>', { desc = '' })
 
 vim.keymap.set('n', 'gt', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>', {})
@@ -116,6 +123,7 @@ vim.keymap.set('n', 'gt', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>', {
 --
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
+vim.opt.expandtab = true
 --
 -- EXTRA OPTIONS ------------------------------------
 --
@@ -126,7 +134,7 @@ vim.opt.pumblend = 20
 --
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -602,6 +610,7 @@ require('lazy').setup({
         clangd = {},
         jdtls = {},
         tailwindcss = {},
+        zls = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         -- Some languages (like typescript) have entire language plugins that can be useful: https://github.com/pmizio/typescript-tools.nvim
@@ -861,10 +870,72 @@ require('lazy').setup({
 
     -- optionally set the colorscheme within lazy config
     init = function()
+      require('cyberdream').setup {
+        -- Enable transparent background
+        transparent = false,
+
+        -- Enable italics comments
+        italic_comments = false,
+
+        -- Replace all fillchars with ' ' for the ultimate clean look
+        hide_fillchars = false,
+
+        -- Modern borderless telescope theme
+        borderless_telescope = true,
+
+        -- Set terminal colors used in `:terminal`
+        terminal_colors = true,
+
+        theme = {
+          variant = 'default', -- use "light" for the light variant
+          highlights = {
+            -- Highlight groups to override, adding new groups is also possible
+            -- See `:h highlight-groups` for a list of
+            -- highlight groups or run `:hi` to see all groups and their current values
+
+            -- Complete list can be found in `lua/cyberdream/theme.lua`
+          },
+          -- Override a color entirely
+          --[[           colors = {
+            -- For a list of colors see `lua/cyberdream/colours.lua`
+            -- Example:
+            --
+            bg = '#ffffff',
+            bgAlt = '#ffffff',
+            bgHighlight = '#3c4048',
+            fg = '#16181a',
+            grey = '#7b8496',
+            blue = '#5ea1ff',
+            green = '#5eff6c',
+            cyan = '#5ef1ff',
+            red = '#ff6e5e',
+            yellow = '#f1ff5e',
+            magenta = '#ff5ef1',
+            pink = '#ff5ea0',
+            orange = '#ffbd5e',
+            purple = '#bd5eff',
+          }, ]]
+        },
+      }
+      -- Add a custom keybinding to toggle the colorscheme
+      vim.api.nvim_set_keymap('n', '<leader>tt', ':CyberdreamToggleMode<CR>', { noremap = true, silent = true })
       vim.cmd 'colorscheme cyberdream'
     end,
   },
+  --[[ 
+  { 
+    'lukas-reineke/indent-blankline.nvim', 
+    main = 'ibl', 
+    opts = {},
+  },
 
+ ]]
+  --[[   {
+    'tjdevries/colorbuddy.nvim',
+    init = function()
+      vim.cmd.colorscheme 'gruvbuddy'
+    end,
+  }, ]]
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -909,7 +980,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'css', 'java', 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'css', 'java', 'bash', 'c', 'cpp', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
