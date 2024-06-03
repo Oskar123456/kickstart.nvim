@@ -129,6 +129,8 @@ vim.opt.expandtab = true
 --
 vim.opt.pumheight = 4
 vim.opt.pumblend = 20
+
+vim.opt.guicursor = 'n-v-i-c:block-Cursor'
 --
 -- MY OWN CUSTOM STUFF HERE --------------------
 --
@@ -423,7 +425,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      -- vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -607,7 +609,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        clangd = {},
+        -- clangd = {},
         jdtls = {},
         tailwindcss = {},
         zls = {},
@@ -862,74 +864,76 @@ require('lazy').setup({
   --     vim.cmd 'colorscheme oxocarbon'
   --   end,
   -- },
+  -- {
+  --   'scottmckendry/cyberdream.nvim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function() end,
+  --
+  --   -- optionally set the colorscheme within lazy config
+  --   init = function()
+  --     require('cyberdream').setup {
+  --       -- Enable transparent background
+  --       transparent = false,
+  --
+  --       -- Enable italics comments
+  --       italic_comments = false,
+  --
+  --       -- Replace all fillchars with ' ' for the ultimate clean look
+  --       hide_fillchars = false,
+  --
+  --       -- Modern borderless telescope theme
+  --       borderless_telescope = true,
+  --
+  --       -- Set terminal colors used in `:terminal`
+  --       terminal_colors = true,
+  --
+  --       theme = {
+  --         variant = 'default', -- use "light" for the light variant
+  --         highlights = {
+  --           -- Highlight groups to override, adding new groups is also possible
+  --           -- See `:h highlight-groups` for a list of
+  --           -- highlight groups or run `:hi` to see all groups and their current values
+  --
+  --           -- Complete list can be found in `lua/cyberdream/theme.lua`
+  --         },
+  --         -- Override a color entirely
+  --         --[[           colors = {
+  --           -- For a list of colors see `lua/cyberdream/colours.lua`
+  --           -- Example:
+  --           --
+  --           bg = '#ffffff',
+  --           bgAlt = '#ffffff',
+  --           bgHighlight = '#3c4048',
+  --           fg = '#16181a',
+  --           grey = '#7b8496',
+  --           blue = '#5ea1ff',
+  --           green = '#5eff6c',
+  --           cyan = '#5ef1ff',
+  --           red = '#ff6e5e',
+  --           yellow = '#f1ff5e',
+  --           magenta = '#ff5ef1',
+  --           pink = '#ff5ea0',
+  --           orange = '#ffbd5e',
+  --           purple = '#bd5eff',
+  --         }, ]]
+  --       },
+  --     }
+  --     -- Add a custom keybinding to toggle the colorscheme
+  --     vim.api.nvim_set_keymap('n', '<leader>tt', ':CyberdreamToggleMode<CR>', { noremap = true, silent = true })
+  --     vim.cmd 'colorscheme cyberdream'
+  --   end,
+  -- },
+
   {
-    'scottmckendry/cyberdream.nvim',
-    lazy = false,
+    'catppuccin/nvim',
+    name = 'catppuccin',
     priority = 1000,
-    config = function() end,
-
-    -- optionally set the colorscheme within lazy config
     init = function()
-      require('cyberdream').setup {
-        -- Enable transparent background
-        transparent = false,
-
-        -- Enable italics comments
-        italic_comments = false,
-
-        -- Replace all fillchars with ' ' for the ultimate clean look
-        hide_fillchars = false,
-
-        -- Modern borderless telescope theme
-        borderless_telescope = true,
-
-        -- Set terminal colors used in `:terminal`
-        terminal_colors = true,
-
-        theme = {
-          variant = 'default', -- use "light" for the light variant
-          highlights = {
-            -- Highlight groups to override, adding new groups is also possible
-            -- See `:h highlight-groups` for a list of
-            -- highlight groups or run `:hi` to see all groups and their current values
-
-            -- Complete list can be found in `lua/cyberdream/theme.lua`
-          },
-          -- Override a color entirely
-          --[[           colors = {
-            -- For a list of colors see `lua/cyberdream/colours.lua`
-            -- Example:
-            --
-            bg = '#ffffff',
-            bgAlt = '#ffffff',
-            bgHighlight = '#3c4048',
-            fg = '#16181a',
-            grey = '#7b8496',
-            blue = '#5ea1ff',
-            green = '#5eff6c',
-            cyan = '#5ef1ff',
-            red = '#ff6e5e',
-            yellow = '#f1ff5e',
-            magenta = '#ff5ef1',
-            pink = '#ff5ea0',
-            orange = '#ffbd5e',
-            purple = '#bd5eff',
-          }, ]]
-        },
-      }
-      -- Add a custom keybinding to toggle the colorscheme
-      vim.api.nvim_set_keymap('n', '<leader>tt', ':CyberdreamToggleMode<CR>', { noremap = true, silent = true })
-      vim.cmd 'colorscheme cyberdream'
+      vim.cmd.colorscheme 'catppuccin-mocha'
     end,
   },
-  --[[ 
-  { 
-    'lukas-reineke/indent-blankline.nvim', 
-    main = 'ibl', 
-    opts = {},
-  },
 
- ]]
   --[[   {
     'tjdevries/colorbuddy.nvim',
     init = function()
