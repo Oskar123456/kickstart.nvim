@@ -93,8 +93,9 @@ vim.keymap.set({ 'n', 'v' }, 'J', '4j')
 vim.keymap.set('n', 'S', 'J')
 vim.keymap.set('i', '.,', '<Esc>')
 
-vim.keymap.set('n', '<M-l>', '<cmd>tabn<CR>')
-vim.keymap.set('n', '<M-h>', '<cmd>tabp<CR>')
+vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-l>', '<cmd>tabn<CR>')
+vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-h>', '<cmd>tabp<CR>')
+vim.keymap.set({ 'n', 'v', 'i' }, '<leader>nt', '<cmd>Neotree<CR>')
 
 vim.keymap.set('n', '<leader>e', '<cmd>q<CR>')
 vim.keymap.set('n', 'go', '<cmd>b#<CR>')
@@ -113,14 +114,15 @@ vim.api.nvim_set_keymap('n', '<F6>', '<cmd>CompilerOpen<cr>', { noremap = true, 
 -- Redo last selected option
 vim.api.nvim_set_keymap(
   'n',
-  '<S-F6>',
+  '<F5>',
   '<cmd>CompilerStop<cr>' -- (Optional, to dispose all tasks before redo)
     .. '<cmd>CompilerRedo<cr>',
   { noremap = true, silent = true }
 )
 
 -- Toggle compiler results
-vim.api.nvim_set_keymap('n', '<S-F7>', '<cmd>CompilerToggleResults<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-F6>', '<cmd>CompilerToggleResults<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<F7>', '<cmd>CompilerToggleResults<cr>', { noremap = true, silent = true })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -494,6 +496,9 @@ require('lazy').setup({
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
           map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+          -- map('\\\\', vim.lsp.buf.hover, 'Hover')
+          map('<leader>k', vim.lsp.buf.hover, 'Hover')
+          map('<leader>h', vim.lsp.buf.hover, 'Hover')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
@@ -631,6 +636,7 @@ require('lazy').setup({
       local servers = {
         jdtls = {},
         clangd = {},
+        csharp_ls = {},
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -688,7 +694,7 @@ require('lazy').setup({
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>F',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
