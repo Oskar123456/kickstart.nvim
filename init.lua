@@ -201,30 +201,30 @@ require('lazy').setup({
             [','] = '<Esc>',
           },
         },
-        c = {
-          ['.'] = {
-            -- These can all also be functions
-            [','] = '<Esc>',
-          },
-        },
-        t = {
-          ['.'] = {
-            -- These can all also be functions
-            [','] = '<Esc>',
-          },
-        },
-        v = {
-          ['.'] = {
-            -- These can all also be functions
-            [','] = '<Esc>',
-          },
-        },
-        s = {
-          ['.'] = {
-            -- These can all also be functions
-            [','] = '<Esc>',
-          },
-        },
+        -- c = {
+        --   ['.'] = {
+        --     -- These can all also be functions
+        --     [','] = '<Esc>',
+        --   },
+        -- },
+        -- t = {
+        --   ['.'] = {
+        --     -- These can all also be functions
+        --     [','] = '<Esc>',
+        --   },
+        -- },
+        -- v = {
+        --   ['.'] = {
+        --     -- These can all also be functions
+        --     [','] = '<Esc>',
+        --   },
+        -- },
+        -- s = {
+        --   ['.'] = {
+        --     -- These can all also be functions
+        --     [','] = '<Esc>',
+        --   },
+        -- },
       },
     },
   },
