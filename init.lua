@@ -91,11 +91,11 @@ vim.keymap.set({ 'n', 'v' }, '<C-j>', '4<C-e>')
 vim.keymap.set({ 'n', 'v' }, 'K', '4k')
 vim.keymap.set({ 'n', 'v' }, 'J', '4j')
 vim.keymap.set('n', 'S', 'J')
-vim.keymap.set('i', '.,', '<Esc>')
+-- vim.keymap.set('i', '.,', '<Esc>')
 
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-l>', '<cmd>tabn<CR>')
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-h>', '<cmd>tabp<CR>')
-vim.keymap.set({ 'n', 'v', 'i' }, '<leader>nt', '<cmd>Neotree<CR>')
+vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>Neotree<CR>')
 
 vim.keymap.set('n', '<leader>e', '<cmd>q<CR>')
 vim.keymap.set('n', 'go', '<cmd>b#<CR>')
@@ -186,6 +186,48 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'Shatur/neovim-ayu',
+
+  {
+    'max397574/better-escape.nvim',
+
+    opts = {
+      timeout = vim.o.timeoutlen, -- after `timeout` passes, you can press the escape key and the plugin will ignore it
+      default_mappings = false, -- setting this to false removes all the default mappings
+      mappings = {
+        -- i for insert
+        i = {
+          ['.'] = {
+            -- These can all also be functions
+            [','] = '<Esc>',
+          },
+        },
+        c = {
+          ['.'] = {
+            -- These can all also be functions
+            [','] = '<Esc>',
+          },
+        },
+        t = {
+          ['.'] = {
+            -- These can all also be functions
+            [','] = '<Esc>',
+          },
+        },
+        v = {
+          ['.'] = {
+            -- These can all also be functions
+            [','] = '<Esc>',
+          },
+        },
+        s = {
+          ['.'] = {
+            -- These can all also be functions
+            [','] = '<Esc>',
+          },
+        },
+      },
+    },
+  },
 
   {
     'nvim-neo-tree/neo-tree.nvim',
