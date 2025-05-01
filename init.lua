@@ -10,6 +10,15 @@ vim.opt.guicursor = 'n-v-i-c:block-Cursor'
 vim.g.have_nerd_font = true
 
 vim.o.winborder = 'single'
+vim.filetype.add {
+  -- ...
+  pattern = {
+    -- ...
+    ['.*/zfunctions/.*'] = 'zsh',
+    ['.*%.axaml'] = 'xml',
+    ['.*%.xaml'] = 'xml',
+  },
+}
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
