@@ -201,6 +201,10 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'Shatur/neovim-ayu',
+  'rebelot/kanagawa.nvim',
+  'EdenEast/nightfox.nvim',
+  'nyoom-engineering/oxocarbon.nvim',
+  'tpope/vim-fugitive',
 
   {
     'max397574/better-escape.nvim',
@@ -694,6 +698,7 @@ require('lazy').setup({
         jdtls = {},
         clangd = {},
         csharp_ls = {},
+        lemminx = {},
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -759,6 +764,11 @@ require('lazy').setup({
         desc = '[F]ormat buffer',
       },
     },
+    -- formatters = {
+    --   prettier = {
+    --     command = 'npx prettier -w',
+    --   },
+    -- },
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
@@ -777,6 +787,8 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        -- xml = { 'xmllint' },
+        -- json = { 'prettierd' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -861,7 +873,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'ayu-dark'
+      vim.cmd.colorscheme 'ayu-mirage'
     end,
   },
 
