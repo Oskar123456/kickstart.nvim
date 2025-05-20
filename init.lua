@@ -207,6 +207,18 @@ require('lazy').setup({
   'tpope/vim-fugitive',
 
   {
+    'hedyhli/outline.nvim',
+    lazy = true,
+    cmd = { 'Outline', 'OutlineOpen' },
+    keys = { -- Example mapping to toggle outline
+      { '<leader>o', '<cmd>Outline<CR>', desc = 'Toggle outline' },
+    },
+    opts = {
+      -- Your setup opts here
+    },
+  },
+
+  {
     'max397574/better-escape.nvim',
 
     opts = {
@@ -702,6 +714,10 @@ require('lazy').setup({
         -- emmet_language_server = {},
         cssls = {},
         html = {},
+        marksman = {},
+        -- ltex = {
+        --   enabled = { 'bibtex', 'org', 'tex', 'restructuredtext', 'rsweave', 'latex', 'quarto', 'rmd', 'context', 'mail' },
+        -- },
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
