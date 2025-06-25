@@ -111,13 +111,16 @@ vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>Neotree<CR>')
 vim.keymap.set('n', '<leader>e', '<cmd>q<CR>')
 vim.keymap.set('n', 'go', '<cmd>b#<CR>')
 
-vim.keymap.set({ 'n', 'v', 'i', 't' }, '<F4>', '<cmd>:q!<CR>')
+vim.keymap.set({ 'n', 'v', 'i', 't' }, '<F28>', '<cmd>:q!<CR>')
 vim.keymap.set({ 'n', 'v', 'i' }, '<F2>', '<cmd>:ToggleTerm size=25 dir=. direction=horizontal name=terminal<CR>')
 vim.keymap.set({ 'n', 'v', 'i' }, '<F3>', '<cmd>:ToggleTerm size=100 dir=. direction=vertical name=terminal<CR>')
 vim.keymap.set({ 'n', 'v', 'i' }, '<F5>', '<cmd>:ToggleTerm size=25 dir=. direction=horizontal name=terminal<CR>make<CR>')
 vim.keymap.set({ 'n', 'v', 'i' }, '<F7>', '<cmd>:ToggleTerm size=25 dir=. direction=horizontal name=terminal<CR>make run<CR>')
 vim.keymap.set({ 't' }, '<F3>', '<cmd>:ToggleTerm<CR>')
 vim.keymap.set({ 't' }, '<F2>', '<cmd>:ToggleTerm<CR>')
+
+vim.keymap.set({ 'v' }, '<leader>p', '"_dP')
+vim.keymap.set({ 'v' }, '<leader>d', '"_d')
 
 -- Open compiler
 vim.api.nvim_set_keymap('n', '<F6>', '<cmd>CompilerOpen<cr>', { noremap = true, silent = true })
@@ -134,6 +137,7 @@ vim.api.nvim_set_keymap(
 -- Toggle compiler results
 vim.api.nvim_set_keymap('n', '<C-F6>', '<cmd>CompilerToggleResults<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<F7>', '<cmd>CompilerToggleResults<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<F4>', '<cmd>CompilerToggleResults<cr>', { noremap = true, silent = true })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -715,6 +719,7 @@ require('lazy').setup({
         cssls = {},
         html = {},
         marksman = {},
+        texlab = {},
         -- ltex = {
         --   enabled = { 'bibtex', 'org', 'tex', 'restructuredtext', 'rsweave', 'latex', 'quarto', 'rmd', 'context', 'mail' },
         -- },
@@ -894,7 +899,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'ayu-dark'
+      vim.cmd.colorscheme 'ayu-mirage'
     end,
   },
 
