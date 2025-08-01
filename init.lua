@@ -237,6 +237,9 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'navarasu/onedark.nvim',
   'vifm/vifm.vim',
+  'iruzo/matrix-nvim',
+  'luisiacc/the-matrix.nvim',
+  'xero/miasma.nvim',
 
   {
     'hedyhli/outline.nvim',
@@ -751,6 +754,7 @@ require('lazy').setup({
         html = {},
         marksman = {},
         texlab = {},
+        zls = {},
         -- ltex = {
         --   enabled = { 'bibtex', 'org', 'tex', 'restructuredtext', 'rsweave', 'latex', 'quarto', 'rmd', 'context', 'mail' },
         -- },
@@ -935,7 +939,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'miasma'
     end,
   },
 
