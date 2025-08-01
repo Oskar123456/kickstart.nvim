@@ -4,6 +4,25 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+if vim.g.neovide then
+  vim.g.neovide_position_animation_length = 0
+  vim.g.neovide_cursor_animation_length = 0.00
+  vim.g.neovide_cursor_trail_size = 0
+  vim.g.neovide_cursor_animate_in_insert_mode = false
+  vim.g.neovide_cursor_animate_command_line = false
+  vim.g.neovide_scroll_animation_far_lines = 0
+  vim.g.neovide_scroll_animation_length = 0.00
+  vim.g.neovide_hide_mouse_when_typing = true
+end
+
+-- local prettier = {
+--   formatCommand = 'prettierd "${INPUT}"',
+--   formatStdin = true,
+--   env = {
+--     string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand '~/.config/nvim/utils/linter-config/.prettierrc.json'),
+--   },
+-- }
+
 vim.opt.guicursor = 'n-v-i-c:block-Cursor'
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
@@ -91,6 +110,9 @@ vim.opt.confirm = true
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- VIFM
+vim.keymap.set({ 'n', 'v', 'i', 't' }, '<C-s>', '<cmd>split +Vifm<CR>')
+vim.keymap.set({ 'n', 'v', 'i', 't' }, '<C-x>', '<cmd>Vifm<CR>')
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -214,6 +236,7 @@ require('lazy').setup({
   'nyoom-engineering/oxocarbon.nvim',
   'tpope/vim-fugitive',
   'navarasu/onedark.nvim',
+  'vifm/vifm.vim',
 
   {
     'hedyhli/outline.nvim',
@@ -499,6 +522,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>g', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
@@ -828,7 +852,10 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'prettierd', stop_after_first = true },
+        javascriptreact = { 'prettierd', stop_after_first = true },
+        typescript = { 'prettierd', stop_after_first = true },
+        typescriptreact = { 'prettierd', stop_after_first = true },
       },
     },
   },
@@ -931,7 +958,7 @@ require('lazy').setup({
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
+      -- require('mini.surround').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
