@@ -111,8 +111,9 @@ vim.opt.confirm = true
 --  See `:help vim.keymap.set()`
 
 -- VIFM
-vim.keymap.set({ 'n', 'v', 'i', 't' }, '<C-s>', '<cmd>split +Vifm<CR>')
-vim.keymap.set({ 'n', 'v', 'i', 't' }, '<C-x>', '<cmd>Vifm<CR>')
+vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-v>', '<cmd>split +Vifm<CR>')
+-- vim.keymap.set({ 'n', 'v', 'i', 't' }, '<C-x>', '<cmd>Vifm<CR>')
+vim.keymap.set({ 'n', 'v', 'i', 't' }, '<C-g>', '<cmd>suspend<CR>')
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -128,7 +129,10 @@ vim.keymap.set('n', 'S', 'J')
 
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-l>', '<cmd>tabn<CR>')
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-h>', '<cmd>tabp<CR>')
-vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>Neotree<CR>')
+-- vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>Neotree<CR>')
+vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>Oil<CR>')
+vim.keymap.set({ 'n', 'v' }, '<C-s>', '<cmd>Oil<CR>')
+vim.keymap.set({ 'n', 'v' }, '-', '<cmd>Oil<CR>')
 
 vim.keymap.set('n', '<leader>e', '<cmd>q<CR>')
 vim.keymap.set('n', 'go', '<cmd>b#<CR>')
@@ -240,6 +244,35 @@ require('lazy').setup({
   'iruzo/matrix-nvim',
   'luisiacc/the-matrix.nvim',
   'xero/miasma.nvim',
+
+  {
+    'stevearc/oil.nvim',
+    config = function()
+      require('oil').setup {
+        keymaps = {
+          ['g?'] = { 'actions.show_help', mode = 'n' },
+          ['<CR>'] = 'actions.select',
+          ['<C-n>'] = 'actions.select',
+          ['<C-s>'] = { 'actions.select', opts = { vertical = true } },
+          ['<C-h>'] = { 'actions.select', opts = { horizontal = true } },
+          ['<C-t>'] = { 'actions.select', opts = { tab = true } },
+          ['<C-p>'] = 'actions.preview',
+          ['<C-c>'] = { 'actions.close', mode = 'n' },
+          ['<C-l>'] = 'actions.refresh',
+          ['-'] = { 'actions.parent', mode = 'n' },
+          ['_'] = { 'actions.open_cwd', mode = 'n' },
+          ['`'] = { 'actions.cd', mode = 'n' },
+          ['~'] = { 'actions.cd', opts = { scope = 'tab' }, mode = 'n' },
+          ['gs'] = { 'actions.change_sort', mode = 'n' },
+          ['gx'] = 'actions.open_external',
+          ['g.'] = { 'actions.toggle_hidden', mode = 'n' },
+          ['g\\'] = { 'actions.toggle_trash', mode = 'n' },
+        },
+        -- Set to false to disable all of the above keymaps
+        use_default_keymaps = true,
+      }
+    end,
+  },
   {
     'hedyhli/outline.nvim',
     lazy = true,
@@ -294,31 +327,31 @@ require('lazy').setup({
     },
   },
 
-  {
-    'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v3.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-      'MunifTanjim/nui.nvim',
-      -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
-    },
-    -- lazy = false, -- neo-tree will lazily load itself
-    -- @module "neo-tree"
-    -- @type neotree.Config?
-    opts = {
-      window = {
-        mappings = {
-          ['l'] = {
-            'open',
-          },
-          ['h'] = {
-            'close_node',
-          },
-        },
-      },
-    },
-  },
+  -- {
+  --   'nvim-neo-tree/neo-tree.nvim',
+  --   branch = 'v3.x',
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+  --     'MunifTanjim/nui.nvim',
+  --     -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+  --   },
+  --   -- lazy = false, -- neo-tree will lazily load itself
+  --   -- @module "neo-tree"
+  --   -- @type neotree.Config?
+  --   opts = {
+  --     window = {
+  --       mappings = {
+  --         ['l'] = {
+  --           'open',
+  --         },
+  --         ['h'] = {
+  --           'close_node',
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
 
   {
     'windwp/nvim-autopairs',
@@ -495,6 +528,36 @@ require('lazy').setup({
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
+        pickers = {
+          find_files = {
+            disable_devicons = true,
+            previewer = false,
+          },
+          file_browser = {
+            disable_devicons = true,
+            previewer = false,
+          },
+          buffers = {
+            disable_devicons = true,
+            previewer = false,
+          },
+          oldfiles = {
+            disable_devicons = true,
+            previewer = false,
+          },
+          live_grep = {
+            disable_devicons = true,
+            previewer = true,
+          },
+          grep_string = {
+            disable_devicons = true,
+            previewer = true,
+          },
+          current_buffer_fuzzy_find = {
+            disable_devicons = true,
+            previewer = true,
+          },
+        },
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
@@ -518,6 +581,7 @@ require('lazy').setup({
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+      vim.keymap.set('n', '<leader>tr', builtin.treesitter, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = '[S]earch [F]iles' })
