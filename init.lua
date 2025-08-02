@@ -28,6 +28,8 @@ vim.opt.guicursor = 'n-v-i-c:block-Cursor'
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+vim.api.nvim_create_user_command('Datetime', "r! date '+\\%y-\\%m-\\%d \\%H:\\%M:\\%S'", {})
+
 vim.o.winborder = 'single'
 vim.filetype.add {
   -- ...
@@ -244,6 +246,9 @@ require('lazy').setup({
   'iruzo/matrix-nvim',
   'luisiacc/the-matrix.nvim',
   'xero/miasma.nvim',
+  'lurst/austere.vim',
+  'huyvohcmc/atlas.vim',
+  'chriskempson/base16-vim',
 
   {
     'stevearc/oil.nvim',
@@ -253,6 +258,7 @@ require('lazy').setup({
           ['g?'] = { 'actions.show_help', mode = 'n' },
           ['<CR>'] = 'actions.select',
           ['<C-n>'] = 'actions.select',
+          ['L'] = 'actions.select',
           ['<C-s>'] = { 'actions.select', opts = { vertical = true } },
           ['<C-h>'] = { 'actions.select', opts = { horizontal = true } },
           ['<C-t>'] = { 'actions.select', opts = { tab = true } },
@@ -260,6 +266,8 @@ require('lazy').setup({
           ['<C-c>'] = { 'actions.close', mode = 'n' },
           ['<C-l>'] = 'actions.refresh',
           ['-'] = { 'actions.parent', mode = 'n' },
+          ['H'] = { 'actions.parent', mode = 'n' },
+          ['gh'] = { 'actions.parent', mode = 'n' },
           ['_'] = { 'actions.open_cwd', mode = 'n' },
           ['`'] = { 'actions.cd', mode = 'n' },
           ['~'] = { 'actions.cd', opts = { scope = 'tab' }, mode = 'n' },
@@ -1091,7 +1099,7 @@ require('lazy').setup({
     config = function()
       require('lualine').setup {
         options = {
-          theme = 'gruvbox_dark',
+          theme = 'auto',
           -- section_separators = { left = '', right = '' },
           -- component_separators = { left = '', right = '' },
         },
@@ -1135,9 +1143,5 @@ require('lazy').setup({
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
 
--- Load the colorscheme here.
--- Like many other themes, this one has different styles, and you could load
--- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
 vim.cmd.colorscheme 'miasma'
