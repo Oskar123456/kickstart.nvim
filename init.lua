@@ -528,34 +528,86 @@ require('lazy').setup({
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
+        defaults = {
+          layout_config = {
+            -- layout_strategy = 'center',
+            -- vertical = { width = 0.5, height = 0.75 },
+            -- horizontal = { width = 0.5, height = 0.75 },
+            -- center = { width = 0.5, height = 0.75 },
+            -- layout_config = { height = 0.75, width = 0.5 },
+            -- other layout configuration here
+          },
+        },
         pickers = {
           find_files = {
             disable_devicons = true,
             previewer = false,
+            theme = 'ivy',
           },
           file_browser = {
             disable_devicons = true,
             previewer = false,
+            theme = 'ivy',
           },
           buffers = {
             disable_devicons = true,
             previewer = false,
+            theme = 'ivy',
           },
           oldfiles = {
             disable_devicons = true,
             previewer = false,
+            theme = 'ivy',
           },
           live_grep = {
             disable_devicons = true,
             previewer = true,
+            theme = 'ivy',
           },
           grep_string = {
             disable_devicons = true,
             previewer = true,
+            theme = 'ivy',
           },
           current_buffer_fuzzy_find = {
             disable_devicons = true,
+            previewer = false,
+            theme = 'ivy',
+          },
+          keymaps = {
+            disable_devicons = true,
             previewer = true,
+            theme = 'ivy',
+          },
+          help_tags = {
+            disable_devicons = true,
+            previewer = true,
+            theme = 'ivy',
+          },
+          treesitter = {
+            disable_devicons = true,
+            previewer = true,
+            theme = 'ivy',
+          },
+          diagnostics = {
+            disable_devicons = true,
+            previewer = true,
+            theme = 'ivy',
+          },
+          resume = {
+            disable_devicons = true,
+            previewer = true,
+            theme = 'ivy',
+          },
+          lsp_document_symbols = {
+            disable_devicons = true,
+            previewer = true,
+            theme = 'ivy',
+          },
+          lsp_dynamic_workspace_symbols = {
+            disable_devicons = true,
+            previewer = true,
+            theme = 'ivy',
           },
         },
         -- You can put your default mappings / updates / etc. in here
@@ -596,15 +648,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<C-b>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-
-      -- Slightly advanced example of overriding default behavior and theme
-      vim.keymap.set('n', '<leader>/', function()
-        -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = false,
-        })
-      end, { desc = '[/] Fuzzily search in current buffer' })
+      vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = '[/] Fuzzily search in current buffer' })
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
