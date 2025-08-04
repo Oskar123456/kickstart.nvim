@@ -116,18 +116,20 @@ vim.opt.confirm = true
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-v>', '<cmd>split +Vifm<CR>')
 -- vim.keymap.set({ 'n', 'v', 'i', 't' }, '<C-x>', '<cmd>Vifm<CR>')
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<C-g>', '<cmd>suspend<CR>')
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', 's', '<cmd>write<CR>')
 vim.keymap.set({ 'n', 'v' }, 'D', 'dd')
 vim.keymap.set({ 'n', 'v' }, 'Y', 'yy')
-vim.keymap.set({ 'n', 'v' }, '<C-k>', '4<C-y>')
-vim.keymap.set({ 'n', 'v' }, '<C-j>', '4<C-e>')
-vim.keymap.set({ 'n', 'v' }, 'K', '4k')
-vim.keymap.set({ 'n', 'v' }, 'J', '4j')
-vim.keymap.set('n', 'S', 'J')
+-- vim.keymap.set({ 'n', 'v' }, '<C-k>', '4<C-y>')
+-- vim.keymap.set({ 'n', 'v' }, '<C-j>', '4<C-e>')
+vim.keymap.set({ 'n', 'v' }, '<C-k>', '<C-w>k')
+vim.keymap.set({ 'n', 'v' }, '<C-j>', '<C-w>j')
+-- vim.keymap.set({ 'n', 'v' }, 'K', '4k')
+-- vim.keymap.set({ 'n', 'v' }, 'J', '4j')
+-- vim.keymap.set('n', 'S', 'J')
 -- vim.keymap.set('i', '.,', '<Esc>')
+
+-- vim.keymap.set({ 'n', 'v' }, '<C-n>', 'zz')
 
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-l>', '<cmd>tabn<CR>')
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-h>', '<cmd>tabp<CR>')
@@ -149,23 +151,6 @@ vim.keymap.set({ 't' }, '<F2>', '<cmd>:ToggleTerm<CR>')
 
 vim.keymap.set({ 'v' }, '<leader>p', '"_dP')
 vim.keymap.set({ 'v' }, '<leader>d', '"_d')
-
--- Open compiler
-vim.api.nvim_set_keymap('n', '<F6>', '<cmd>CompilerOpen<cr>', { noremap = true, silent = true })
-
--- Redo last selected option
-vim.api.nvim_set_keymap(
-  'n',
-  '<F5>',
-  '<cmd>CompilerStop<cr>' -- (Optional, to dispose all tasks before redo)
-    .. '<cmd>CompilerRedo<cr>',
-  { noremap = true, silent = true }
-)
-
--- Toggle compiler results
-vim.api.nvim_set_keymap('n', '<C-F6>', '<cmd>CompilerToggleResults<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<F7>', '<cmd>CompilerToggleResults<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<F4>', '<cmd>CompilerToggleResults<cr>', { noremap = true, silent = true })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -189,6 +174,8 @@ vim.keymap.set('i', '<C-k>', '<Up>', { noremap = true, desc = 'Move focus to the
 
 vim.keymap.set('t', '<C-h>', '<C-\\><C-n><C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('t', '<C-l>', '<C-\\><C-n><C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('t', '<C-k>', '<C-\\><C-n><C-w><C-k>', { desc = 'Move focus to the window above' })
+vim.keymap.set('t', '<C-j>', '<C-\\><C-n><C-w><C-j>', { desc = 'Move focus to the window below' })
 -- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 -- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
@@ -646,6 +633,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', 'S', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
