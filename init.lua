@@ -168,8 +168,8 @@ vim.api.nvim_set_keymap('n', '<F7>', '<cmd>CompilerToggleResults<cr>', { noremap
 vim.api.nvim_set_keymap('n', '<F4>', '<cmd>CompilerToggleResults<cr>', { noremap = true, silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.open_float, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<C-m>', vim.diagnostic.open_float, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -1147,9 +1147,9 @@ require('lazy').setup({
 -- The line beneath this is called `modeline`. See `:help modeline`
 
 vim.cmd.colorscheme 'miasma'
-vim.api.nvim_create_autocmd({ 'CursorHold' }, {
-  pattern = { '*' },
-  callback = function()
-    vim.diagnostic.open_float()
-  end,
-})
+-- vim.api.nvim_create_autocmd({ 'CursorHold' }, {
+--   pattern = { '*' },
+--   callback = function()
+--     vim.diagnostic.open_float()
+--   end,
+-- })
