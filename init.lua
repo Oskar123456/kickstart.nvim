@@ -114,6 +114,7 @@ vim.opt.confirm = true
 
 -- VIFM
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-v>', '<cmd>split +Vifm<CR>')
+vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-s>', '<cmd>split +Vifm<CR>')
 -- vim.keymap.set({ 'n', 'v', 'i', 't' }, '<C-x>', '<cmd>Vifm<CR>')
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<C-g>', '<cmd>suspend<CR>')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -134,7 +135,7 @@ vim.keymap.set({ 'n', 'v' }, '<C-j>', '<C-w>j')
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-l>', '<cmd>tabn<CR>')
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-h>', '<cmd>tabp<CR>')
 -- vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>Neotree<CR>')
-vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>Oil<CR>')
+vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>NnnExplorer<CR>')
 vim.keymap.set({ 'n', 'v' }, '<C-s>', '<cmd>Oil<CR>')
 vim.keymap.set({ 'n', 'v' }, '-', '<cmd>Oil<CR>')
 
@@ -238,6 +239,12 @@ require('lazy').setup({
   'huyvohcmc/atlas.vim',
   'chriskempson/base16-vim',
 
+  {
+    'luukvbaal/nnn.nvim',
+    config = function()
+      require('nnn').setup {}
+    end,
+  },
   {
     'stevearc/oil.nvim',
     config = function()
