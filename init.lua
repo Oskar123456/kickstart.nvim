@@ -15,17 +15,8 @@ if vim.g.neovide then
   vim.g.neovide_hide_mouse_when_typing = true
 end
 
--- local prettier = {
---   formatCommand = 'prettierd "${INPUT}"',
---   formatStdin = true,
---   env = {
---     string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand '~/.config/nvim/utils/linter-config/.prettierrc.json'),
---   },
--- }
-
 vim.opt.guicursor = 'n-v-i-c:block-Cursor'
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
 vim.api.nvim_create_user_command('Datetime', "r! date '+\\%y-\\%m-\\%d \\%H:\\%M:\\%S'", {})
@@ -40,11 +31,6 @@ vim.filetype.add {
     ['.*%.xaml'] = 'xml',
   },
 }
-
--- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
 
 -- Make line numbers default
 vim.opt.number = true
@@ -134,8 +120,11 @@ vim.keymap.set({ 'n', 'v' }, '<C-j>', '<C-w>j')
 
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-l>', '<cmd>tabn<CR>')
 vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-h>', '<cmd>tabp<CR>')
+vim.keymap.set({ 'n', 'v' }, '<leader>nt', function()
+  MiniFiles.open()
+end)
 -- vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>Neotree<CR>')
-vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>NnnExplorer<CR>')
+-- vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>NnnExplorer<CR>')
 vim.keymap.set({ 'n', 'v' }, '<C-s>', '<cmd>Oil<CR>')
 vim.keymap.set({ 'n', 'v' }, '-', '<cmd>Oil<CR>')
 
@@ -239,12 +228,12 @@ require('lazy').setup({
   'huyvohcmc/atlas.vim',
   'chriskempson/base16-vim',
 
-  {
-    'luukvbaal/nnn.nvim',
-    config = function()
-      require('nnn').setup {}
-    end,
-  },
+  -- {
+  --   'luukvbaal/nnn.nvim',
+  --   config = function()
+  --     require('nnn').setup {}
+  --   end,
+  -- },
   {
     'stevearc/oil.nvim',
     config = function()
@@ -273,8 +262,12 @@ require('lazy').setup({
         },
         -- Set to false to disable all of the above keymaps
         use_default_keymaps = true,
+        default_file_explorer = false,
       }
     end,
+  },
+  {
+    'benomahony/oil-git.nvim',
   },
   {
     'hedyhli/outline.nvim',
@@ -968,10 +961,10 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettierd', stop_after_first = true },
-        javascriptreact = { 'prettierd', stop_after_first = true },
-        typescript = { 'prettierd', stop_after_first = true },
-        typescriptreact = { 'prettierd', stop_after_first = true },
+        javascript = { 'eslint', 'prettierd', stop_after_first = true },
+        javascriptreact = { 'eslint', 'prettierd', stop_after_first = true },
+        typescript = { 'eslint', 'prettierd', stop_after_first = true },
+        typescriptreact = { 'eslint', 'prettierd', stop_after_first = true },
       },
     },
   },
@@ -1052,42 +1045,12 @@ require('lazy').setup({
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
-      -- Better Around/Inside textobjects
-      --
-      -- Examples:
-      --  - va)  - [V]isually select [A]round [)]paren
-      --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
-      --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
-
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      -- require('mini.surround').setup()
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      -- local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      -- statusline.setup { use_icons = vim.g.have_nerd_font }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      -- statusline.section_location = function()
-      --   return '%2l:%-2v'
-      -- end
-
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
+      require('mini.files').setup()
+      require('mini.icons').setup()
     end,
   },
   {
