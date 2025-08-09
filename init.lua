@@ -123,10 +123,16 @@ vim.keymap.set({ 'n', 'v', 'i', 't' }, '<M-h>', '<cmd>tabp<CR>')
 vim.keymap.set({ 'n', 'v' }, '<leader>nt', function()
   MiniFiles.open()
 end)
+vim.keymap.set({ 'n', 'v' }, '<C-s>', function()
+  MiniFiles.open()
+end)
+vim.keymap.set({ 'n', 'v' }, '-', function()
+  MiniFiles.open()
+end)
 -- vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>Neotree<CR>')
 -- vim.keymap.set({ 'n', 'v' }, '<leader>nt', '<cmd>NnnExplorer<CR>')
-vim.keymap.set({ 'n', 'v' }, '<C-s>', '<cmd>Oil<CR>')
-vim.keymap.set({ 'n', 'v' }, '-', '<cmd>Oil<CR>')
+-- vim.keymap.set({ 'n', 'v' }, '<C-s>', '<cmd>Oil<CR>')
+-- vim.keymap.set({ 'n', 'v' }, '-', '<cmd>Oil<CR>')
 
 vim.keymap.set('n', '<leader>e', '<cmd>q<CR>')
 vim.keymap.set('n', 'go', '<cmd>b#<CR>')
@@ -187,7 +193,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
-
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -217,58 +222,15 @@ require('lazy').setup({
   'Shatur/neovim-ayu',
   'rebelot/kanagawa.nvim',
   'EdenEast/nightfox.nvim',
-  'nyoom-engineering/oxocarbon.nvim',
   'tpope/vim-fugitive',
   'navarasu/onedark.nvim',
   'vifm/vifm.vim',
   'iruzo/matrix-nvim',
   'luisiacc/the-matrix.nvim',
   'xero/miasma.nvim',
-  'lurst/austere.vim',
-  'huyvohcmc/atlas.vim',
-  'chriskempson/base16-vim',
+  'ecthelionvi/NeoColumn.nvim',
+  'marko-cerovac/material.nvim',
 
-  -- {
-  --   'luukvbaal/nnn.nvim',
-  --   config = function()
-  --     require('nnn').setup {}
-  --   end,
-  -- },
-  {
-    'stevearc/oil.nvim',
-    config = function()
-      require('oil').setup {
-        keymaps = {
-          ['g?'] = { 'actions.show_help', mode = 'n' },
-          ['<CR>'] = 'actions.select',
-          ['<C-n>'] = 'actions.select',
-          ['L'] = 'actions.select',
-          ['<C-s>'] = { 'actions.select', opts = { vertical = true } },
-          ['<C-h>'] = { 'actions.select', opts = { horizontal = true } },
-          ['<C-t>'] = { 'actions.select', opts = { tab = true } },
-          ['<C-p>'] = 'actions.preview',
-          ['<C-c>'] = { 'actions.close', mode = 'n' },
-          ['<C-l>'] = 'actions.refresh',
-          ['-'] = { 'actions.parent', mode = 'n' },
-          ['H'] = { 'actions.parent', mode = 'n' },
-          ['gh'] = { 'actions.parent', mode = 'n' },
-          ['_'] = { 'actions.open_cwd', mode = 'n' },
-          ['`'] = { 'actions.cd', mode = 'n' },
-          ['~'] = { 'actions.cd', opts = { scope = 'tab' }, mode = 'n' },
-          ['gs'] = { 'actions.change_sort', mode = 'n' },
-          ['gx'] = 'actions.open_external',
-          ['g.'] = { 'actions.toggle_hidden', mode = 'n' },
-          ['g\\'] = { 'actions.toggle_trash', mode = 'n' },
-        },
-        -- Set to false to disable all of the above keymaps
-        use_default_keymaps = true,
-        default_file_explorer = false,
-      }
-    end,
-  },
-  {
-    'benomahony/oil-git.nvim',
-  },
   {
     'hedyhli/outline.nvim',
     lazy = true,
@@ -288,37 +250,11 @@ require('lazy').setup({
       timeout = vim.o.timeoutlen, -- after `timeout` passes, you can press the escape key and the plugin will ignore it
       default_mappings = false, -- setting this to false removes all the default mappings
       mappings = {
-        -- i for insert
         i = {
           ['.'] = {
-            -- These can all also be functions
             [','] = '<Esc>',
           },
         },
-        -- c = {
-        --   ['.'] = {
-        --     -- These can all also be functions
-        --     [','] = '<Esc>',
-        --   },
-        -- },
-        -- t = {
-        --   ['.'] = {
-        --     -- These can all also be functions
-        --     [','] = '<Esc>',
-        --   },
-        -- },
-        -- v = {
-        --   ['.'] = {
-        --     -- These can all also be functions
-        --     [','] = '<Esc>',
-        --   },
-        -- },
-        -- s = {
-        --   ['.'] = {
-        --     -- These can all also be functions
-        --     [','] = '<Esc>',
-        --   },
-        -- },
       },
     },
   },
@@ -631,6 +567,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>tr', builtin.treesitter, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+      vim.keymap.set('n', '<C-f>', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', 'S', builtin.find_files, { desc = '[S]earch [F]iles' })
@@ -818,7 +755,7 @@ require('lazy').setup({
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
-        virtual_text = false,
+        virtual_text = true,
         -- virtual_text = {
         --   source = 'if_many',
         --   spacing = 2,
@@ -961,10 +898,10 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'eslint', 'prettierd', stop_after_first = true },
-        javascriptreact = { 'eslint', 'prettierd', stop_after_first = true },
-        typescript = { 'eslint', 'prettierd', stop_after_first = true },
-        typescriptreact = { 'eslint', 'prettierd', stop_after_first = true },
+        javascript = { 'prettierd', stop_after_first = true },
+        javascriptreact = { 'prettierd', stop_after_first = true },
+        typescript = { 'prettierd', stop_after_first = true },
+        typescriptreact = { 'prettierd', stop_after_first = true },
       },
     },
   },
@@ -1049,7 +986,24 @@ require('lazy').setup({
     'echasnovski/mini.nvim',
     config = function()
       require('mini.ai').setup { n_lines = 500 }
-      require('mini.files').setup()
+      require('mini.files').setup {
+        mappings = {
+          close = '<C-c>',
+          -- close = 'q',
+          go_in = 'l',
+          go_in_plus = 'L',
+          go_out = 'h',
+          go_out_plus = 'H',
+          mark_goto = "'",
+          mark_set = 'm',
+          reset = '<BS>',
+          reveal_cwd = '@',
+          show_help = 'g?',
+          synchronize = '=',
+          trim_left = '<',
+          trim_right = '>',
+        },
+      }
       require('mini.icons').setup()
     end,
   },
@@ -1104,10 +1058,5 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 
-vim.cmd.colorscheme 'miasma'
--- vim.api.nvim_create_autocmd({ 'CursorHold' }, {
---   pattern = { '*' },
---   callback = function()
---     vim.diagnostic.open_float()
---   end,
--- })
+vim.cmd.colorscheme 'material-deep-ocean'
+vim.opt.colorcolumn = '100'
