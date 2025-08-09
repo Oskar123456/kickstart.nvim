@@ -230,6 +230,14 @@ require('lazy').setup({
   'xero/miasma.nvim',
   'ecthelionvi/NeoColumn.nvim',
   'marko-cerovac/material.nvim',
+  {
+    'nvim-telekasten/telekasten.nvim',
+    config = function()
+    require('telekasten').setup {
+      home = vim.fn.expand '~/.vim-notes'
+    }
+    end
+  },
 
   {
     'hedyhli/outline.nvim',
